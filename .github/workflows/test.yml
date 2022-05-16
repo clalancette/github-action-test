@@ -5,6 +5,10 @@ on: [push, pull_request]
 jobs:
   test:
     runs-on: ubuntu-20.04
+    # By default, I believe that Github actions use sh, and not bash,
+    # to run each step.  But we really want bash so that we get pipefail
+    # behavior, so set the default to bash.  See
+    # https://github.com/actions/runner/issues/353 for more information.
     defaults:
       run:
         shell: bash
