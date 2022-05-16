@@ -16,7 +16,8 @@ jobs:
       - name: Build output
         id: build
         run: |
-          echo "::set-output name=OUTPUT::\"$(make html)\""
+          msg=$(make html | jq --raw-input --slurp '.')
+          echo "::set-output name=OUTPUT::msg::$msg"
 
       - name: Show output
         run: echo ${{ steps.build.outputs.OUTPUT }}
