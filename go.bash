@@ -2,3 +2,4 @@
 
 echo "Hello"
 echo "there"
+exit 0

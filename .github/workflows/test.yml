@@ -16,7 +16,7 @@ jobs:
       - name: Build output
         id: build
         run: |
-          echo "::set-output name=OUTPUT::$( make html )"
+          echo "::set-output name=OUTPUT::\"$(make html)\""
 
       - name: Show output
         run: echo ${{ steps.build.outputs.OUTPUT }}
