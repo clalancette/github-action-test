@@ -13,11 +13,16 @@ jobs:
         with:
           python-version: 3.8
 
+      # This step runs the build process and collects the output into a variable.
+      # We have to process that variable through jq to make a JSON object to work
+      # around a GitHub limitation of carriage returns in output; see
+      # https://github.community/t/set-output-truncates-multiline-strings/16852/8
+      # for a discussion and the origin of this workaround.
       - name: Build output
         id: build
         run: |
           msg=$(make html | jq --raw-input --slurp '.')
           echo "::set-output name=OUTPUT::$msg"
 
-      - name: Show output
-        run: echo "${{ fromJSON(steps.build.outputs.OUTPUT) }}" | grep -v -i error
+      - name: Check output for error
+        run: echo "${{ fromJSON(steps.build.outputs.OUTPUT) }}" | grep -v -q -i error
