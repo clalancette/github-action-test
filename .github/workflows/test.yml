@@ -13,5 +13,10 @@ jobs:
         with:
           python-version: 3.8
 
-      - name: Run makefile
-        run: make
+      - name: Build output
+        id: build
+        run: >-
+          echo "::set-output name=OUTPUT::$( make html )"
+
+      - name: Show output
+        run: echo ${{ steps.build.outputs.OUTPUT }}
