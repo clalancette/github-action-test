@@ -2,5 +2,5 @@
 
 echo "Hello"
 echo "there"
-echo "error"
+echo "warning" >&2
 exit 0

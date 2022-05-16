@@ -28,10 +28,10 @@ jobs:
       - name: Build output
         id: build
         run: |
-          msg=$(make html | jq --raw-input --slurp '.')
+          msg=$(make html 2>&1 | jq --raw-input --slurp '.')
           echo "::set-output name=OUTPUT::$msg"
 
       - name: Check output for error
         run: |
-          count=$(echo "${{ fromJSON(steps.build.outputs.OUTPUT) }}" | grep -c -i error) || true
+          count=$(echo "${{ fromJSON(steps.build.outputs.OUTPUT) }}" | grep -c -i warning) || true
           if [ "$count" -gt 0 ]; then exit 1; fi
