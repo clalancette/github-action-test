@@ -34,4 +34,5 @@ jobs:
       - name: Check output for error
         run: |
           count=$(echo "${{ fromJSON(steps.build.outputs.OUTPUT) }}" | grep -c -i error)
-          if [ $count -gt 0 ]; then exit 1; fi
+          echo "$count"
+          if [ "$count" -gt 0 ]; then exit 1; fi
