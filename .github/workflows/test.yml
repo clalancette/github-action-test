@@ -20,4 +20,4 @@ jobs:
           echo "::set-output name=OUTPUT::$msg"
 
       - name: Show output
-        run: echo "${{ fromJSON(steps.build.outputs.OUTPUT) }}"
+        run: echo "${{ fromJSON(steps.build.outputs.OUTPUT) | grep -v -i error }}"
