@@ -32,4 +32,6 @@ jobs:
           echo "::set-output name=OUTPUT::$msg"
 
       - name: Check output for error
-        run: echo "${{ fromJSON(steps.build.outputs.OUTPUT) }}" | grep -v -q -i error
+        run: |
+          count=$(echo "${{ fromJSON(steps.build.outputs.OUTPUT) }}" | grep -c -i error)
+          if [ $count -gt 0 ]; then exit 1; fi
